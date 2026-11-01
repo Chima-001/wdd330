@@ -4,6 +4,24 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  renderCartTotal(cartItems);
+}
+
+function renderCartTotal(cartItems) {
+  const footer = document.querySelector(".cart-footer");
+
+  if (cartItems.length === 0) {
+    footer.classList.add("hide");
+    return;
+  }
+
+  const total = cartItems.reduce(
+    (sum, item) => sum + Number(item.FinalPrice),
+    0,
+  );
+  document.querySelector(".cart-total").innerHTML =
+    `Total: $${total.toFixed(2)}`;
+  footer.classList.remove("hide");
 }
 
 function cartItemTemplate(item) {
