@@ -35,13 +35,12 @@ function cartItemTemplate(item) {
   <span class="cart-card_remove" data-id="${item.Id}">&#10062</span>
 </li>`;
 
-
   return newItem;
 }
 
 function removeProductFromCart(productId) {
   const cartItems = getLocalStorage("so-cart") || [];
-  cartItems = cartItems.filter(item => item.Id !== ProductId);
+  cartItems = cartItems.filter((item) => item.Id !== ProductId);
   setLocalStorage("so-cart", cartItems);
 }
 
