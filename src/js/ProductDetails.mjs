@@ -27,9 +27,9 @@ export default class ProductDetails {
     }
 
     addProductToCart() {
-        const cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(this.product);
-        setLocalStorage("so-cart", cartItems);
+        const cartContents = getLocalStorage("so-cart") || [];
+        cartContents.push(this.product);
+        setLocalStorage("so-cart", cartContents);
     }
 
     renderProductDetails() {
@@ -45,15 +45,10 @@ function productDetailsTemplate(product) {
     productImage.src = imageUrls[product.Image] || product.Image;
     productImage.alt = product.NameWithoutBrand;
 
-    document.getElementById("productPrice").textContent =
-        product.FinalPrice;
-
+    document.getElementById("productPrice").textContent = product.FinalPrice;
     document.getElementById("productColor").textContent =
         product.Colors[0].ColorName;
-
     document.getElementById("productDesc").innerHTML =
         product.DescriptionHtmlSimple;
-
-    document.getElementById("addToCart").dataset.id =
-        product.Id;
+    document.getElementById("addToCart").dataset.id = product.Id;
 }
