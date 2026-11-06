@@ -27,9 +27,9 @@ export default class ProductDetails {
     }
 
     addProductToCart() {
-        const cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(this.product);
-        setLocalStorage("so-cart", cartItems);
+        const cartContents = getLocalStorage("so-cart") || [];
+        cartContents.push(this.product);
+        setLocalStorage("so-cart", cartContents);
     }
 
     renderProductDetails() {
@@ -38,7 +38,6 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-    let discount = (product.FinalPrice / product.SuggestedRetailPrice * 100).toFixed(2)
     document.querySelector("h2").textContent = product.Brand.Name;
     document.querySelector("h3").textContent = product.NameWithoutBrand;
 
@@ -46,21 +45,10 @@ function productDetailsTemplate(product) {
     productImage.src = imageUrls[product.Image] || product.Image;
     productImage.alt = product.NameWithoutBrand;
 
-    document.getElementById("productPrice").innerHTML =
-        `MSRP $${product.SuggestedRetailPrice.toFixed(2)}`;
-
-    document.getElementById("productDiscount").innerHTML =
-        `${discount}% discount`;
-
-    document.getElementById("productDiscountPrice").innerHTML =
-        `Our price $${product.FinalPrice.toFixed(2)}`;
-
+    document.getElementById("productPrice").textContent = product.FinalPrice;
     document.getElementById("productColor").textContent =
         product.Colors[0].ColorName;
-
     document.getElementById("productDesc").innerHTML =
         product.DescriptionHtmlSimple;
-
-    document.getElementById("addToCart").dataset.id =
-        product.Id;
+    document.getElementById("addToCart").dataset.id = product.Id;
 }
