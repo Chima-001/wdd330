@@ -72,10 +72,10 @@ function productDetailsTemplate(product) {
 
     document.getElementById("productPrice").innerHTML = `MSRP $${product.SuggestedRetailPrice.toFixed(2)}`;
     
-    document.getElementById("productDiscount").innerHTML = `${discount}% Discount`;    
-    
+    document.getElementById("productDiscount").innerHTML = `${discount}% Discount`;
+
     document.getElementById("productDiscountPrice").innerHTML = `Our Price $${product.FinalPrice.toFixed(2)}`;
-    
+
     document.getElementById("productColor").textContent =
         product.Colors[0].ColorName;
     document.getElementById("productDesc").innerHTML =
