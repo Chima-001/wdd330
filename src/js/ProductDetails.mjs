@@ -1,11 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-const imageUrls = import.meta.glob("../images/tents/*", {
-    eager: true,
-    import: "default",
-    query: "?url",
-});
-
 export default class ProductDetails {
 
     constructor(productId, dataSource) {
@@ -61,13 +55,17 @@ addButton.addEventListener(
 }
 
 function productDetailsTemplate(product) {
-    let discount = (product.FinalPrice / product.SuggestedRetailPrice * 100).toFixed(2)
+    const discount = (
+        ((product.SuggestedRetailPrice - product.FinalPrice) /
+            product.SuggestedRetailPrice) *
+        100
+    ).toFixed(2);
 
     document.querySelector("h2").textContent = product.Brand.Name;
     document.querySelector("h3").textContent = product.NameWithoutBrand;
 
     const productImage = document.getElementById("productImage");
-    productImage.src = imageUrls[product.Image] || product.Image;
+    productImage.src = product.Images.PrimaryLarge;
     productImage.alt = product.NameWithoutBrand;
 
     document.getElementById("productPrice").innerHTML = `MSRP $${product.SuggestedRetailPrice.toFixed(2)}`;

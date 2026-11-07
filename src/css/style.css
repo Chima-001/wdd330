@@ -163,6 +163,27 @@ button {
   justify-content: center;
 }
 
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  list-style: none;
+  text-align: center;
+}
+
+.category-list a {
+  color: var(--dark-grey);
+  text-decoration: none;
+}
+
+.category-list img {
+  height: 120px;
+}
+
+.category-list h2 {
+  font-size: 1.1em;
+}
+
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
