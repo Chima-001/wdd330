@@ -286,6 +286,19 @@ footer {
   padding: 1em;
 }
 
+.hide {
+  display: none;
+}
+
+.cart-footer {
+  padding: 0 1rem;
+  text-align: right;
+}
+
+.cart-total {
+  font-weight: bold;
+}
+
 #cart-confirmation {
   color: var(--secondary-color);
   font-weight: bold;

@@ -14,11 +14,29 @@ function renderCartContents(statusMessage = "") {
   );
 
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  renderCartTotal(cartItems);
 
   const emptyMessage = document.querySelector("#empty-cart-message");
   emptyMessage.hidden = cartItems.length > 0;
 
   document.querySelector("#cart-status").textContent = statusMessage;
+}
+
+function renderCartTotal(cartItems) {
+  const footer = document.querySelector(".cart-footer");
+
+  if (cartItems.length === 0) {
+    footer.classList.add("hide");
+    return;
+  }
+
+  const total = cartItems.reduce(
+    (sum, item) => sum + Number(item.FinalPrice),
+    0,
+  );
+  document.querySelector(".cart-total").textContent =
+    `Total: $${total.toFixed(2)}`;
+  footer.classList.remove("hide");
 }
 
 function getCartImageUrl(imagePath) {
