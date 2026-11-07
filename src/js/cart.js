@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 const imageUrls = import.meta.glob("../images/tents/*", {
   eager: true,
@@ -85,6 +85,7 @@ function removeProductFromCart(index) {
 
   cartItems.splice(index, 1);
   setLocalStorage("so-cart", cartItems);
+  updateCartCount();
 
   renderCartContents(`${removedItem.Name} was removed from your cart.`);
 }
@@ -98,3 +99,5 @@ document.querySelector(".product-list").addEventListener("click", (event) => {
     removeProductFromCart(Number(removeButton.dataset.index));
   }
 });
+
+updateCartCount();
