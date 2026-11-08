@@ -1,14 +1,14 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 export default class ProductDetails {
 
     constructor(productId, dataSource) {
-    this.productId = productId;
-    this.product = {};
-    this.dataSource = dataSource;
-    this.addButtonText = "";
-    this.cartFeedbackTimeout = null;
-}
+        this.productId = productId;
+        this.product = {};
+        this.dataSource = dataSource;
+        this.addButtonText = "";
+        this.cartFeedbackTimeout = null;
+    }
 
     async init() {
         // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
@@ -19,35 +19,36 @@ export default class ProductDetails {
         // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
         const addButton = document.getElementById("addToCart");
 
-this.addButtonText = addButton.textContent.trim();
+        this.addButtonText = addButton.textContent.trim();
 
-addButton.addEventListener(
-    "click",
-    this.addProductToCart.bind(this),
-);
+        addButton.addEventListener(
+            "click",
+            this.addProductToCart.bind(this),
+        );
     }
 
     addProductToCart() {
-    const cartContents = getLocalStorage("so-cart") || [];
-    cartContents.push(this.product);
-    setLocalStorage("so-cart", cartContents);
+        const cartContents = getLocalStorage("so-cart") || [];
+        cartContents.push(this.product);
+        setLocalStorage("so-cart", cartContents);
+        updateCartCount();
 
-    const button = document.getElementById("addToCart");
-    const confirmation = document.querySelector("#cart-confirmation");
+        const button = document.getElementById("addToCart");
+        const confirmation = document.querySelector("#cart-confirmation");
 
-    clearTimeout(this.cartFeedbackTimeout);
+        clearTimeout(this.cartFeedbackTimeout);
 
-    button.textContent = "In the Cart";
-    confirmation.textContent =
-        `${this.product.NameWithoutBrand} added to your cart!`;
+        button.textContent = "In the Cart";
+        confirmation.textContent =
+            `${this.product.NameWithoutBrand} added to your cart!`;
 
-    confirmation.classList.add("is-visible");
+        confirmation.classList.add("is-visible");
 
-    this.cartFeedbackTimeout = setTimeout(() => {
-        button.textContent = this.addButtonText;
-        confirmation.classList.remove("is-visible");
-    }, 3000);
-}
+        this.cartFeedbackTimeout = setTimeout(() => {
+            button.textContent = this.addButtonText;
+            confirmation.classList.remove("is-visible");
+        }, 3000);
+    }
 
     renderProductDetails() {
         productDetailsTemplate(this.product);
@@ -69,7 +70,7 @@ function productDetailsTemplate(product) {
     productImage.alt = product.NameWithoutBrand;
 
     document.getElementById("productPrice").innerHTML = `MSRP $${product.SuggestedRetailPrice.toFixed(2)}`;
-    
+
     document.getElementById("productDiscount").innerHTML = `${discount}% Discount`;
 
     document.getElementById("productDiscountPrice").innerHTML = `Our Price $${product.FinalPrice.toFixed(2)}`;
