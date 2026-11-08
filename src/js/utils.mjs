@@ -41,3 +41,10 @@ export function renderListWithTemplate(
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+//sets the text to reflect the number of items in the cart
+export function updateCartCount(){
+  const cart = getLocalStorage("so-cart") || [];
+  const confirmation = document.querySelector(".cart-count");
+  confirmation.textContent = cart.length;
+}
