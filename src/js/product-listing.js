@@ -1,0 +1,22 @@
+import ProductData from "./ProductData.mjs";
+import ProductList from "./ProductList.mjs";
+import { getParam } from "./utils.mjs";
+
+const category = getParam("category");
+const dataSource = new ProductData();
+const listElement = document.querySelector(".product-list");
+const title = document.querySelector("#product-listing-title");
+
+if (!category) {
+  throw new Error("Product listing requires a category URL parameter.");
+}
+
+const categoryTitle = category
+  .split("-")
+  .map((word) => word[0].toUpperCase() + word.slice(1))
+  .join(" ");
+
+title.textContent = `Top Products: ${categoryTitle}`;
+
+const productList = new ProductList(category, dataSource, listElement);
+productList.init();

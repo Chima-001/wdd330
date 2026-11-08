@@ -1,11 +1,5 @@
 import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
-const imageUrls = import.meta.glob("../images/tents/*", {
-  eager: true,
-  import: "default",
-  query: "?url",
-});
-
 function renderCartContents(statusMessage = "") {
   const cartItems = getLocalStorage("so-cart") || [];
 
@@ -39,8 +33,8 @@ function renderCartTotal(cartItems) {
   footer.classList.remove("hide");
 }
 
-function getCartImageUrl(imagePath) {
-  return imageUrls[imagePath] || imagePath;
+function getCartImageUrl(item) {
+  return item.Images?.PrimaryMedium || item.Image;
 }
 
 function cartItemTemplate(item, index) {
@@ -48,7 +42,7 @@ function cartItemTemplate(item, index) {
     <li class="cart-card divider">
       <img
         class="cart-card__image"
-        src="${getCartImageUrl(item.Image)}"
+        src="${getCartImageUrl(item)}"
         alt="${item.Name}"
       />
 

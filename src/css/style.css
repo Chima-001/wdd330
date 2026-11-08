@@ -178,6 +178,27 @@ button {
   justify-content: center;
 }
 
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  list-style: none;
+  text-align: center;
+}
+
+.category-list a {
+  color: var(--dark-grey);
+  text-decoration: none;
+}
+
+.category-list img {
+  height: 120px;
+}
+
+.category-list h2 {
+  font-size: 1.1em;
+}
+
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
@@ -233,6 +254,16 @@ button {
 
 .product-detail img {
   width: 100%;
+}
+
+.product-detail #productImage {
+  min-height: 18rem;
+  background: linear-gradient(135deg, #f1f1f1, #d8d8d8);
+  object-fit: contain;
+}
+
+.product-detail #productImage.product-image--loading {
+  background: linear-gradient(135deg, #e8e8e8, #cfcfcf);
 }
 
 /* Start cart list card styles */
