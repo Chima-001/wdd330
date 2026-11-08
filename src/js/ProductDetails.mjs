@@ -66,8 +66,15 @@ function productDetailsTemplate(product) {
     document.querySelector("h3").textContent = product.NameWithoutBrand;
 
     const productImage = document.getElementById("productImage");
-    productImage.src = product.Images.PrimaryLarge;
     productImage.alt = product.NameWithoutBrand;
+    productImage.onload = () => {
+        productImage.classList.remove("product-image--loading");
+    };
+    productImage.onerror = () => {
+        productImage.classList.remove("product-image--loading");
+        productImage.alt = `${product.NameWithoutBrand} image unavailable`;
+    };
+    productImage.src = product.Images.PrimaryLarge;
 
     document.getElementById("productPrice").innerHTML = `MSRP $${product.SuggestedRetailPrice.toFixed(2)}`;
 
