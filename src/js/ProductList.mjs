@@ -40,15 +40,33 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.products = [];
   }
 
   async init() {
-    const list = await this.dataSource.getData(this.category);
+    this.products = await this.dataSource.getData(this.category);
 
-    this.renderList(list);
+    // Render the initial unsorted list
+    this.renderList(this.products);
+  }
+
+  sortList(criterion) {
+    let sortedList = [...this.products];
+
+    if (criterion === "name") {
+      sortedList.sort((a,b) => a.NameWithoutBrand.localeCompare(b.NameWithoutBrand));
+    } else if (criterion === "price") {
+      sortedList.sort((a,b) => a.FinalPrice - b.FinalPrice);
+    }
+
+    // Re-render the list container with the newly sorted items
+    this.renderList(sortedList);
   }
 
   renderList(list) {
+    // Clear out current contents to prevent items from duplicating or stacking
+    this.listElement.innerHTML = "";
+
     renderListWithTemplate(
       productCardTemplate,
       this.listElement,
