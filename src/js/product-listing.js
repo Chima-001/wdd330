@@ -19,4 +19,14 @@ const categoryTitle = category
 title.textContent = `Top Products: ${categoryTitle}`;
 
 const productList = new ProductList(category, dataSource, listElement);
+
 productList.init();
+
+// Hook up your two HTML buttons
+document.querySelector("#sort-by-name").addEventListener("click", () => {
+  productList.sortList("name");
+});
+
+document.querySelector("#sort-by-price").addEventListener("click", () => {
+  productList.sortList("price");
+});
